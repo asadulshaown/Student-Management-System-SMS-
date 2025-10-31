@@ -1,0 +1,42 @@
+
+{% extends 'base.html' %}
+{% load static %}
+{% block title %} Edit Student {% endblock title %}
+
+{% block content %}
+<h4 class=" text-white fw-bold mx-auto"> ভর্তির আবেদনপত্র </h4>
+{% endblock content %}
+
+{% block content1 %}
+<form method="post">
+  {% csrf_token %} 
+
+  <div class=" row mt-4">
+  <div class=" col-md-10">
+      <div class=" d-md-flex justify-content-between">
+        <label class=" text-white form-label fw-bold" for="bangla_name"> নাম (বাংলায়ঃ)</label>
+        <input class=" form-control w-75 fw-bold" type="text" name="bangla_name" id="bangla_name" value="{{ edit_student.student_bangla_name}}">
+      </div>
+
+      <div class=" d-md-flex justify-content-between mt-3">
+        <label class=" text-white form-label fw-bold" for="english_name"> নাম (ইংরেজিতেঃ)</label>
+        <input class=" form-control ms-md-2 w-75 fw-bold" type="text" name="english_name" id="english_name" value="{{ edit_student.student_name}}" required>
+      </div>
+
+      <div class=" d-md-flex justify-content-between mt-3">
+        <label class=" text-white form-label fw-bold" for="phone_num">মোবাইল নম্বরঃ</label>
+        <input class=" form-control ms-md-2 w-75 fw-bold" type="number" name="phone_num" id="phone_num" value="{{ edit_student.student_phone_number}}" required>
+      </div>
+  </div>
+  </div>
+
+  <div class=" d-flex justify-content-center mt-3 mt-md-5 fw-semibold">
+      <button class=" btn btn-success" type="submit">
+        <i class=" bi bi-upload text-black fs-5 fw-bolder me-1"></i>
+        Submit Form       
+      </button>
+    </div>
+
+</form>
+
+{% endblock content1 %}

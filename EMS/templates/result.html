@@ -1,0 +1,70 @@
+
+
+{% extends 'base.html' %}
+{% load static %}
+{% block title %} Result {% endblock title %}
+
+{% block content %} 
+<h4 class=" text-white fw-bold mx-auto"> শিক্ষায় মেলে দিক্ষা...</h4>
+{% endblock content %}
+
+{% block content1 %}
+<div class=" container-sm bg-black rounded shadow-md user-select-none min-vh-100">
+
+    <div class=" d-flex justify-content-end">
+      <a class=" btn btn-info mt-3" href="{% url 'logout' %}">
+        <img class=" text-white object-fit-cover" src="{% static 'images/icon/logout.png' %}" alt="logout icon"> 
+        Logout
+      </a>
+    </div>
+
+    <h3 class=" text-success text-center font fst-italic">
+      Student Status
+    </h3>
+
+    <hr class=" text-white">
+
+    <div class=" d-md-flex justify-content-around">
+      <div class=" d-flex">
+        <p class=" text-info fw-bold"> Name:</p>
+        <p class=" text-white mx-1">{{member.student_name}}</p>
+      </div>
+
+      <div class=" d-flex">
+        <p class="text-info mx-1 fw-bold">Deperment:</p>
+        <p class=" text-white">{{ department }}</p>
+      </div>
+
+      <div class=" d-flex">
+        <p class=" text-info mx-1 fw-bold"> Roll:</p>
+        <p class=" text-white">{{member.roll}}</p>
+      </div>
+      
+      <div class=" d-flex">
+        <p class=" text-info mx-1 fw-bold"> Registation No:</p>
+        <p class=" text-white">{{member.HonorsRegisterNO}}</p>
+      </div>
+
+    </div>
+
+    <div class="mt-4">
+      <table class=" table table-dark table-striped ">
+        <tr class=" fw-bold text-center">
+          <td>Subject</td>
+          <td>Subject Code</td>
+          <td> Grade(CGPA)</td>
+        </tr>
+
+        {% for subject in subjects %}
+        <tr class="">
+          <td>{{subject.subject}}</td>
+          <td>{{subject.subjectCode}}</td>
+          <td>{{subject.id}}</td>
+        </tr>
+        {%  endfor %}
+
+      </table>
+    </div>
+
+  </div>
+{% endblock content1 %}

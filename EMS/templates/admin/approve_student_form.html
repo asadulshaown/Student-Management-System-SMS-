@@ -1,0 +1,37 @@
+
+{% extends "base.html" %}  {# Django base template #}
+{% load static %}
+
+{% block content1 %}
+  <div class=" text-center justify-content-center align-content-center mx-auto mt-3">
+    <h5 class=" text-info opacity-75">Approve Student: {{ student_request.student_name }}
+    </h5>
+    <form method="POST">
+      {% csrf_token %}
+
+      <!-- Show validation error in red -->
+      {% if form.non_field_errors %}
+        {% for error in form.non_field_errors %}
+          <div class=" text-danger m-1">
+            {{ error }}
+          </div>
+        {% endfor %}
+      {% endif %}
+
+      <div class=" w-25 mx-auto justify-content-center">
+      <div class="mb-3">
+        <label for="{{ form.roll.id_for_label }}">Roll Number</label>
+        {{ form.roll }}
+      </div>
+
+      <div class="mb-3">
+        <label for="{{ form.HonorsRegisterNO.id_for_label }}">Honors Registeration No</label>
+        {{ form.HonorsRegisterNO }}
+      </div>
+      </div>
+
+      <button type="submit" class="btn btn-info">Approve</button>
+    </form>
+
+  </div>
+{% endblock content1 %}

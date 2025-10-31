@@ -1,0 +1,75 @@
+
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %} Request Status {% endblock title %}
+
+{% block content %} 
+<h4 class=" text-white fw-bold mx-auto"> নিজেকে তৈরি কর নতুন দিগন্তে...</h4>
+{% endblock content %}
+
+{% block content1 %}
+<div class=" mt-md-5 min-vh-100">
+
+    {% if messages %}
+      {% for message in messages %}
+        <div class="alert alert-{{ message.tags }} mt-2" role="alert" id="alert">
+          {{ message }}
+        </div>
+      {% endfor %}
+    {% endif %}
+
+  <h4 id="requests" class=" text-center">
+    Your Submitted Requests
+  </h4>
+  <table class="table table-dark mt-md-4">
+
+    {% if requests %}
+      <tr>
+        <th>Name</th>
+        <th>Exam</th>
+        <th>Status</th>
+      </tr>
+      <tr>
+          <td>{{ requests.student_name }}</td>
+          <td>{{ requests.examination }}</td>
+          <td>
+            {% if requests.status == 'pending' %}
+              <span id="pending" class="text-warning">Pending</span>
+            {% elif requests.status == 'approved' %}
+              <span id="approve" class="text-success">Approved</span>
+            {% else %}
+              <span class="text-danger">Rejected</span>
+            {% endif %}
+          </td>
+        </tr>
+      {% else %}
+        <tr>
+          <th>Name</th>
+          <th>Honors Register NO</th>
+          <th>Roll</th>
+          <th>Department</th>
+          <th>Login With Honors Register NO</th>
+        </tr>
+
+        <tr>
+          <td>{{ student.student_name }}</td>
+          <td>{{ student.HonorsRegisterNO }}</td>
+          <td>{{ student.roll }}</td>
+          <td>{{ student.department }}</td>
+          <td>
+            <a class=" btn btn-info" href="{% url 'login' %}">
+              <img class="login_icon text-white object-fit-cover" src="{% static 'images/login.svg' %}" alt="login icon">
+              Login
+            </a>
+          </td>
+        </tr>
+      {% endif %}
+  </table>
+</div>
+
+{% endblock content1 %}
+
+{% block script1 %}
+<script src="{% static 'javascript/script.js' %}"></script> 
+{% endblock script1 %}

@@ -1,0 +1,81 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %} Student Management System {% endblock title%}
+
+{% block content %}
+<h4 class=" text-white fw-bold mx-auto"> ভর্তির আবেদনপত্র </h4>
+{% endblock content %}
+
+{% block content1 %}   
+    <!-- Desktop menu -->
+    <div class="d-none d-md-flex justify-content-end gap-2 position-sticky top-0">
+        <a class="btn btn-warning mt-3" href="{% url 'register' %}">
+            <img class=" text-white object-fit-cover" src="{% static 'images/icon/admin.png' %}" alt="admin icon">
+            Register Now
+        </a>
+
+        <div class="dropdown mt-3">
+            <button class="btn btn-primary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                 <img class="login_icon text-white object-fit-cover" src="{% static 'images/login.svg' %}" alt="login icon">
+                Login Here
+            </button>
+            <ul class="dropdown-menu">
+                <li>
+                  <a class="dropdown-item bg-success-subtle" href="{% url 'login' %}">
+                    <img class="login_icon text-white object-fit-cover" src="{% static 'images/login.svg' %}" alt="login icon">
+                    Student Login</a>
+                </li>
+                <li>
+                  <a class="dropdown-item bg-info bg-opacity-50" href="{% url 'register' %}">
+                    <img class=" text-white object-fit-cover" src="{% static 'images/icon/registered.png' %}" alt="registered icon">
+                    Apply Student
+                    </a>
+                </li>
+                <li>
+                  <a class="dropdown-item bg-warning bg-opacity-50" href="/admin/">
+                    <img class=" text-white object-fit-cover" src="{% static 'images/icon/admin.png' %}" alt="admin icon">
+                    Admin Login
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- Mobile menu -->
+    <div class="w-100 d-md-none position-fixed bottom-0 bg-light border rounded p-2">
+        <div class="d-flex justify-content-center gap-3">
+            <a href="{% url 'register' %}">
+                <img src="{% static 'images/add.svg' %}" alt="register">
+            </a>
+            <a href="{% url 'login' %}">
+                <img src="{% static 'images/login.svg' %}" alt="login">
+            </a>
+        </div>
+    </div>
+
+    <hr class="text-light">
+   
+    <!-- Hero section -->
+    <!-- <div>
+        <h3 class="text-center text-info">Be A Man Like <q class="fst-italic">Down To Earth</q>
+        </h3>
+    </div> -->
+
+
+    <!-- carousel set up  -->
+    <div id="autoCarousel" class="carousel slide carousel_img" data-bs-ride="carousel" data-bs-interval="3000">
+        <div class="carousel-inner">
+            <div class="carousel-item active">
+                <img src="{% static 'images/sis.png' %}" class="d-block w-100 border rounded-3 object-fit-cover carousel_img" alt="sis">
+            </div>
+
+            {% for img in craousel_img %}
+            <div class="carousel-item ">
+                <img src="{{ img.carousel_images.url }}" class="d-block w-100 carousel-img border rounded-3 object-fit-cover carousel_img" alt="{{ img.carousel_image_name}}">
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+
+{% endblock content1 %}

@@ -1,0 +1,307 @@
+
+
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Registation</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <!-- Bootstrap Icons -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
+  <link rel="stylesheet" href="{% static 'css/register.css' %}">
+
+</head>
+<body class=" bg-black">
+
+  <div class="container bg-dark shadow-lg border border-3 border-dark rounded">
+
+  <div class=" row bg-success d-grid justify-content-end">
+  <a class=" btn btn-outline-light fw-bold mt-md-2 " href="{% url 'home' %}">
+    <img class=" text-white object-fit-cover" src="{% static 'images/icon/home.png' %}" alt="home icon"> 
+    Home
+  </a>
+  </div>
+
+  <div class="row bg-success">
+
+    <div class=" d-none col-md-2 d-md-flex justify-content-end">
+      <img class=" w-50 object-fit-contain" src="{% static 'images/nulogo.png' %}" alt="logokacst">
+    </div>
+
+    <div class="col-md-8 d-grid justify-content-center">
+      <p class=" text-white mx-auto"> জাতীয় বিশ্ববিদ্যালয় অধিভুক্ত </p>
+      <h4 class=" text-white"> খানজাহান আলী বিজ্ঞান ও প্রযুক্তি মহাবিদ্যালয়, খুলনা </h4>
+      <p class=" text-white mx-auto"> ৪ বছর মেয়াদি স্নাতক(সম্মান) প্রফেশনাল কোর্সের (বিবিএ, সিএসই, ইসিই)</p>
+      <h4 class=" text-white fw-bold mx-auto"> ভর্তির আবেদনপত্র </h4>
+      
+    </div>
+
+    <div class=" d-none col-md-2 d-md-flex ">
+      <img class=" w-75 object-fit-contain" src="{% static 'images/logokacst.png' %}" alt="nulogo">
+
+    </div>
+
+  </div>
+
+  <hr class="text-white">
+  <h4 class=" text-info">
+    {{mess}}
+  </h4>
+
+  <!-- Register for Student -->
+  <form method="post" enctype="multipart/form-data">
+  {% csrf_token %}  
+  <!-- information section -->
+   <div class=" row mt-4">
+    <p class=" text-white fw-bold"> ১। আবেদনকারী (নির্ভুলভাবে) পূরন করবেঃ </p>
+    <div class=" col-md-2 border-3 border-end">
+      <p class=" text-white">প্রার্থীর পূর্ণ নামঃ 
+      (এসএসসি পরীক্ষার প্রবেশপত্র অনুযায়ী)</p>
+
+    </div>
+
+    <div class=" col-md-10">
+      <div class=" d-flex justify-content-between">
+        <label class=" text-white form-label fw-bold" for="bangla_name"> নাম বাংলায়ঃ</label>
+        <input class=" form-control w-75 fw-bold text-white bg-dark border-info" type="text" name="bangla_name" id="bangla_name" required>
+      </div>
+
+      <div class=" d-flex justify-content-between mt-3">
+        <label class=" text-white form-label fw-bold" for="english_name"> নাম ইংরেজিতেঃ</label>
+        <input class=" form-control ms-md-2 w-75 fw-bold text-white bg-dark border-info" type="text" name="english_name" id="english_name" required>
+      </div>
+
+      <div class=" d-flex justify-content-between mt-3">
+        <label class=" text-white form-label fw-bold" for="phone_num">মোবাইল নম্বরঃ</label>
+        <input class=" form-control ms-md-2 w-75 fw-bold text-white bg-dark border-info" type="number" name="phone_num" id="phone_num" required>
+      </div>
+
+    </div>
+
+   </div>
+
+   <hr class=" text-white">
+
+   <!-- second row -->
+    <div class="row">
+      <div class=" col-md-6">
+       <div class="d-flex justify-content-between mt-3">
+        <label class=" text-white form-label fw-bold" for="fathers_name">২। পিতার নামঃ</label>
+        <input class=" form-control ms-md-2 w-75 fw-bold" type="text" name="fathers_name" id="fathers_name" required>
+       </div> 
+      </div>
+
+      <div class=" col-md-6">
+      <div class=" d-flex justify-content-between mt-3">
+        <label class=" text-white form-label fw-bold" for="fathers_phone_num">মোবাইল নম্বরঃ</label>
+        <input class=" form-control ms-md-2 w-75 fw-bold" type="number" name="fathers_phone_num" id="fathers_phone_num" required>
+      </div>
+      </div>
+    </div>
+
+    <!-- mother info -->
+     <div class="row">
+      <div class=" col-md-6">
+       <div class="d-flex justify-content-between mt-3">
+        <label class=" text-white form-label fw-bold ms-md-4" for="mothers_name">মাতার নামঃ</label>
+        <input class=" form-control ms-md-2 w-75 fw-bold" type="text" name="mothers_name" id="mothers_name" required>
+       </div> 
+      </div>
+
+      <div class=" col-md-6">
+      <div class=" d-flex justify-content-between mt-3">
+        <label class=" text-white form-label fw-bold" for="mothers_phone_num">মোবাইল নম্বরঃ</label>
+        <input class=" form-control ms-md-2 w-75 fw-bold" type="number" name="mothers_phone_num" id="mothers_phone_num" required>
+      </div>
+      </div>
+    </div>
+
+    <!-- address -->
+     <p class=" text-white fw-bold mt-4"> ৩। শীক্ষার্থীর বর্তমান ঠিকানাঃ</p>
+     <div class=" row">
+      <div class=" col-md-4">
+        <div class=" d-flex justify-content-between mt-3">
+        <label class=" text-white form-label fw-bold ms-md-4" for="address">এলাকার ঠিকানাঃ</label>
+        <input class=" form-control ms-md-2 w-75 fw-bold" type="text" name="address" id="address" required>
+      </div>
+      </div>
+
+      <div class=" col-md-4">
+        <div class=" d-flex justify-content-between mt-3">
+        <label class=" text-white form-label fw-bold" for="post_off">পোস্ট অফিস/রোড নংঃ</label>
+        <input class=" form-control ms-md-2 w-75 fw-bold" type="text" name="post_off" id="post_off" required>
+      </div>
+      </div>
+
+      <div class=" col-md-4">
+        <div class=" d-flex justify-content-between mt-3">
+        <label class=" text-white form-label fw-bold" for="word_no">ইউনিয়ন/ওয়ার্ড নংঃ</label>
+        <input class=" form-control ms-md-2 w-75 fw-bold" type="text" name="word_no" id="word_no">
+      </div>
+      </div>
+     </div>
+
+     <div class=" row">
+      <div class=" col-md-4">
+        <div class=" d-flex justify-content-between mt-3">
+        <label class=" text-white form-label fw-bold ms-4" for="post_code">পোস্ট কোডঃ</label>
+        <input class=" form-control ms-md-2 w-75 fw-bold" type="number" name="post_code" id="post_code" required>
+      </div>
+      </div>
+
+      <div class=" col-md-4">
+        <div class=" d-flex justify-content-between mt-3">
+        <label class=" text-white form-label fw-bold" for="thana">উপজেলা/থানাঃ</label>
+        <input class=" form-control ms-md-2 w-75 fw-bold" type="text" name="thana" id="thana" required>
+      </div>
+      </div>
+
+      <div class=" col-md-4">
+        <div class=" d-flex justify-content-between mt-3">
+        <label class=" text-white form-label fw-bold" for="dist">জেলাঃ</label>
+        <input class=" form-control ms-md-2 w-75 fw-bold" type="text" name="dist" id="dist" required>
+        </div>
+      </div>
+     </div>
+
+     <!-- info 5 -->
+      <div class=" row mt-3">
+        <div class=" col-md-4">
+          <div class=" d-flex justify-content-between mt-3 ms-md-4">
+          <label class=" text-white form-label fw-bold" for="nationality">জাতীয়তাঃ</label>
+          <input class=" form-control ms-md-2 w-75 fw-bold" type="text" name="nationality" id="nationality" required>
+          </div>
+          </div>
+
+          <div class=" col-md-4">
+          <div class=" d-flex justify-content-between mt-3">
+          <label class=" text-white form-label fw-bold" for="birth_date">জন্ম তারিখঃ</label>
+          <input class=" form-control ms-md-2 w-75 fw-bold" type="date" name="birth_date" id="birth_date" required>
+          </div>
+          </div>
+
+          <div class=" col-md-4">
+          <div class=" d-flex justify-content-between mt-3">
+          <label class=" text-white form-label fw-bold" for="religion">ধর্মঃ</label>
+          <input class=" form-control ms-md-2 w-75 fw-bold" type="text" name="religion" id="religion" required>
+          </div>
+          </div>
+      </div>
+
+
+      <p class=" mt-3 text-white fw-bold">৪। শিক্ষাগত যোগ্যতাঃ(ইংরেজিতে) </p>
+      <div class=" row">
+        <div class=" col-md-6">
+          <div class=" d-md-flex justify-content-between">
+          <label class=" text-white form-label fw-bold ms-md-4" for="exam">পরীক্ষাঃ</label>
+          <select class="form-select ms-md-2 w-75 crusor" id="exam" name="exam" aria-label="exam">
+            <option selected disabled> -- Select Examination -- </option>
+            <option > HSC </option>
+            <option > SSC </option>
+            <option > JSC </option>
+            <option > PSC </option>
+          </select>
+          </div>
+
+          <div class=" d-md-flex justify-content-between mt-2">
+          <label class=" text-white ms-md-4 form-label fw-bold" for="group">গ্রুপঃ</label>
+          <select class="form-select ms-md-2 w-75 crusor" id="group" name="group" aria-label="group">
+            <option selected disabled> -- Select Group -- </option>
+            <option > Science </option>
+            <option > Arts </option>
+            <option > Commerce </option>
+            <option > Diploma </option>
+          </select>
+          </div>
+
+          <div class=" d-md-flex justify-content-between mt-2">
+          <label class=" text-white ms-md-4 form-label fw-bold" for="board">বোর্ডঃ</label>
+          <select class="form-select ms-md-2 w-75 crusor" id="board" name="board" aria-label="board">
+            <option selected disabled> -- Select Board -- </option>
+            <option > Dhaka </option>
+            <option > Chittagong </option>
+            <option > Rajshahi </option>
+            <option > Jessore </option>
+            <option > Barisal </option>
+            <option > Sylhet </option>
+            <option > Dinajpur </option>
+            <option > Mymensingh </option>
+            <option > Madrasah </option>
+            <option > Technical </option>
+          </select>
+          </div>
+        </div>
+
+        <div class=" col-md-6">
+          <div class=" d-md-flex justify-content-between mt-2">
+          <label class=" text-white form-label fw-bold" for="reg_no">রেজি নংঃ</label>
+          <input class=" form-control ms-md-2 w-75 fw-bold" type="number" name="reg_no" id="reg_no" required>
+          </div>
+
+          <div class=" d-md-flex justify-content-between mt-2">
+          <label class=" text-white form-label fw-bold" for="exam_year">পাশের সনঃ</label>
+          <input class=" form-control w-75 fw-bold" type="number" name="exam_year" id="exam_year" required>
+          </div>
+
+          <div class=" d-md-flex justify-content-between mt-2">
+          <label class=" text-white form-label fw-bold" for="gpa">জিপিএঃ</label>
+          <input class=" form-control ms-md-2 w-75 fw-bold" type="text" name="gpa" id="gpa" required>
+          </div>
+        </div>
+
+      </div>
+
+    <div class="row mt-3"> 
+    <div class="col-md-3 ms-md-4">
+      <label for="departmentName">Department</label>
+      <select class="form-select crusor" id="departmentName" name="department" aria-label="department">
+      <option selected  disabled>-- Select Department --</option>
+
+      {% for dept in department %}
+      <option>{{dept.departmentName}}</option>
+      {% endfor %}
+
+      </select>
+    </div>
+
+    <div class=" col-md-2 mt-3">
+      <div class="border border-white rounded text-center">
+          <div class="mt-2">
+            <p class=" text-white fw-semibold">ছবি সংযুক্ত করুন (600 x 600 pixels)</p>
+            <i class="bi bi-person-bounding-box fs-1 text-white"></i>
+          </div>
+
+          <input type="file" id="profile_pic" name="profile_pic" accept="image/*" class="form-control text-white" onchange="previewPhoto(event)">
+        </div>
+    </div>
+
+    <div class=" col-md-4 mt-3 ">
+      <div class=" d-none" id="photoPreview">       
+      </div>
+    </div>
+
+  </div>
+
+    <div class=" d-flex justify-content-center mt-3 mt-md-5">
+      <button class=" btn btn-success" type="submit">
+        <img class=" text-white object-fit-cover" src="{% static 'images/icon/submit.png' %}" alt="submit icon"> 
+        Submit Form
+      </button>
+    </div>    
+  </form>
+
+  <footer class="bg-secondary text-center text-light py-3 mt-5 shadow-sm rounded">
+  <p class="mb-0">
+    &copy; {% now "Y" %} <strong>Student Management System</strong> | Developed by <span class="text-warning">Asadul Shaown</span>
+  </p>
+  </footer>
+
+  </div>
+  </div>
+
+
+<script src="{% static 'javascript/script.js'%}"></script>
+</body>
+</html>
