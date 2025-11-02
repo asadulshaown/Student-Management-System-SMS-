@@ -2,13 +2,27 @@
 from django.shortcuts import render,redirect,get_object_or_404,HttpResponse
 from django.contrib.auth.models import User
 from django.contrib.auth import logout
+from django.http import JsonResponse
+from django.db.models import Count
 from django.contrib import messages
-from .models import Student, Department,Subjects,StudentRequest,CarouselImage
+from .models import Student, Department,Subjects,StudentRequest,CarouselImage,Card
 
 
+# send data to home.html
 def home(request):
     craousel_img = CarouselImage.objects.all()
-    return render(request, 'home.html',{'craousel_img':craousel_img})
+    card = Card.objects.all()
+    context ={
+        'craousel_img':craousel_img,
+        'card':card
+    }
+    return render(request, 'home.html',context)
+
+# create API for chart 
+def chart_data(request):
+    data = Student.objects.values('department__departmentName').annotate(total=Count('id'))
+    return JsonResponse(list(data), safe=False)
+
   
   
 def register(request):

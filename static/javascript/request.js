@@ -1,7 +1,7 @@
 
 // request.html file
 
-const pend = document.getElementById('pending').innerText
+const pend = document.getElementById('pending')
 let req = document.getElementById('requests')
 
 console.log(typeof(pend),pend);

@@ -1,0 +1,17 @@
+
+
+
+img {
+  width: 80px;
+  height: 60px; 
+  object-fit: cover; 
+  border-radius: 8px;
+  box-shadow: 0 2px 6px rgba(228, 217, 217, 0.9);
+  border-radius: 8px;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+img:hover {
+  transform: scale(1.05);
+  box-shadow: 0 4px 12px rgba(193, 206, 93, 0.909);
+}

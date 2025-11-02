@@ -2,6 +2,10 @@
 {% load static %}
 
 {% block title %} Student Management System {% endblock title%}
+{% block csslink %}
+<link rel="stylesheet" href="{% static 'css/home.css' %}">
+<link rel="stylesheet" href="{% static 'css/carousel_css.css' %}">
+{% endblock csslink %}
 
 {% block content %}
 <h4 class=" text-white fw-bold mx-auto"> ভর্তির আবেদনপত্র </h4>
@@ -9,7 +13,7 @@
 
 {% block content1 %}   
     <!-- Desktop menu -->
-    <div class="d-none d-md-flex justify-content-end gap-2 position-sticky top-0">
+    <div class="d-none d-md-flex justify-content-end gap-2 position-sticky top-0 top_button">
         <a class="btn btn-warning mt-3" href="{% url 'register' %}">
             <img class=" text-white object-fit-cover" src="{% static 'images/icon/admin.png' %}" alt="admin icon">
             Register Now
@@ -20,7 +24,7 @@
                  <img class="login_icon text-white object-fit-cover" src="{% static 'images/login.svg' %}" alt="login icon">
                 Login Here
             </button>
-            <ul class="dropdown-menu">
+            <ul class="dropdown-menu mt-md-1">
                 <li>
                   <a class="dropdown-item bg-success-subtle" href="{% url 'login' %}">
                     <img class="login_icon text-white object-fit-cover" src="{% static 'images/login.svg' %}" alt="login icon">
@@ -78,4 +82,46 @@
         </div>
     </div>
 
+
+
+<!-- start content 2 block -->
+<hr class=" text-info">
+<hr class=" text-info">
+<section class=" w-75 text-info mt-4"  id="charts">
+  <canvas class=" w-75 h-75 text-info" id="studentChart"></canvas>
+</section>
+
+<hr class=" text-light">
+<hr class=" text-light">
+
+<div class=" row mt-4 g-3">
+    {% for i in card %}
+    <div class=" col-md-3">
+        <div class=" card bg-success card_des">
+            <div class=" card-body">
+                <div class=" card-header">
+                    <h3 class=" text-light text-center fw-semibold">{{ i.card_name}}</h3>
+                </div>
+                <div class=" card-img d-flex justify-content-center align-items-center">
+                    <img class=" card_img object-fit-cover" src="{{ i.card_image.url }}" alt="{{ i.card_name}}">
+                </div>
+                <div class=" card-footer">
+                    <p class=" text-light fw-medium">{{ i.card_description}}</p>
+                </div>
+            </div>                     
+        </div>
+    </div>
+    {% endfor %}
+</div>
+<hr class=" text-info">
+<hr class=" text-info">
 {% endblock content1 %}
+
+<!-- start script block -->
+{% block script1 %}
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>const CHART_DATA_URL = "{% url 'chart_data' %}";</script>
+<script src="{% static 'javascript/home.js' %}"></script>
+{% endblock script1 %}
+
+

@@ -125,4 +125,14 @@ class CarouselImage(models.Model):
         return f"{self.carousel_image_name}"
 
     class Meta:
-        verbose_name_plural = "Carousel Image"
+        verbose_name_plural = "Carousel Images"
+
+
+class Card(models.Model):
+    card_name = models.CharField(max_length=100,null=True,blank=True)
+    card_image = models.ImageField(upload_to='images/card_images/', null=True, blank=True)
+    card_description = models.CharField(max_length=200,null=True,blank=True)
+    
+    def __str__(self):
+        return f"{self.card_name}"
+    

@@ -5,15 +5,30 @@ from django.shortcuts import redirect,render
 from django.contrib import messages
 from django.utils.html import format_html
 from .forms import ApproveStudentForm
-from .models import Student,Department,Subjects,StudentRequest,CarouselImage
-
-admin.site.register(Department)
-admin.site.register(Subjects)
-admin.site.register(CarouselImage)
+from .models import Student,Department,Subjects,StudentRequest,CarouselImage,Card
 
 admin.site.site_header="Student Admin Panel"
 admin.site.index_title = "Admin Dashboard"
 
+admin.site.register(Subjects)
+
+# register Department table from model
+@admin.register(Department)
+class DepartmentAdmin(admin.ModelAdmin):
+    # admin show this list_display element
+    list_display = ('departmentName','student_preview')
+
+    def student_preview(self, obj):
+        if obj.id:
+            return format_html(
+                '<p>{}</P',
+                obj.id
+            )
+        return "No Student Found"
+
+
+
+# register Student table form database
 @admin.register(Student)
 class StudentAdmin(admin.ModelAdmin):
     # admin only acn see this
@@ -28,45 +43,35 @@ class StudentAdmin(admin.ModelAdmin):
     # admin only edit this field   
        fields = [
         'HonorsRegisterNO',
-        'roll'
-        
+        'roll'       
     ]
        list_display =[
         'student_name',
         'student_phone_number',
+        'fathers_name',
         'department',
         'roll',
         'HonorsRegisterNO'
        ]
     
     
-
+# register StudentRequest table from model
 @admin.register(StudentRequest)
 class StudentRequestAdmin(admin.ModelAdmin):
-    list_display = ('student_name', 'department','examination','group','exam_year','gpa','roll','HonorsRegisterNO', 'approve_button','reject_button')
+    list_display = ('student_name','student_phone_number','fathers_name', 'department','examination','group','exam_year','gpa','approve_button','reject_button')
     
+    # admin can edit this field
     fields = [
-        'student_name', 
-        'examination',
-        'group',
-        'exam_year',
-        'gpa',
+        'submitted_at', 
     ]
     
-    
+    # make url for approve and reject button in admin dasboard 
     def get_urls(self):
         urls = super().get_urls()
         custom_urls = [
-            path(
-                '<int:request_id>/approve/',
-                self.admin_site.admin_view(self.approve_request),
-                name='EMS_studentrequest_approve'
-            ),
-            path(
-                '<int:request_id>/reject/',
-                self.admin_site.admin_view(self.reject_request),
-                name='EMS_studentrequest_reject'
-            ),
+            path('<int:request_id>/approve/',self.admin_site.admin_view(self.approve_request),name='EMS_studentrequest_approve'),
+            
+            path('<int:request_id>/reject/',self.admin_site.admin_view(self.reject_request),name='EMS_studentrequest_reject'),
         ]
         return custom_urls + urls
 
@@ -93,7 +98,7 @@ class StudentRequestAdmin(admin.ModelAdmin):
       if request.method == "POST":
         form = ApproveStudentForm(request.POST, instance=student_request)
         if form.is_valid():
-            # roll update
+            # student approve by admin
             student_request = form.save(commit=False)
             student_request.status = "Approved"
             student_request.save()
@@ -128,7 +133,7 @@ class StudentRequestAdmin(admin.ModelAdmin):
                 HonorsRegisterNO = student_request.HonorsRegisterNO
             )
             student.save()
-            # StudentRequest delete
+            # student delete from StudentRequest table
             student_request.delete()
             
             messages.success(request, f"{student_request.student_name} has been approved Roll: {student_request.roll}")
@@ -138,6 +143,7 @@ class StudentRequestAdmin(admin.ModelAdmin):
         # set ApproveStudentForm for form
         form = ApproveStudentForm(instance=student_request)
 
+        # send data to admin/approve_student_form.html
       context = {
         "form": form,
         "student_request": student_request,
@@ -156,3 +162,46 @@ class StudentRequestAdmin(admin.ModelAdmin):
         else:
             messages.error(request, "Request not found ")
         return redirect('/admin/EMS/studentrequest/')
+
+
+# register CarouselImage from model
+@admin.register(CarouselImage)
+class CarouselImageAdmin(admin.ModelAdmin):
+    # admin show this list_display element
+    list_display = ('carousel_image_name','image_preview')
+
+    def image_preview(self, obj):
+        if obj.carousel_images:
+            return format_html(
+                '<img src="{}" />',
+                obj.carousel_images.url
+            )
+        return "No Image" 
+    # import css file for design admin panel
+    class Media:
+        css = {'all': ('css/admin_custom.css',)}
+
+
+# register card from card table
+@admin.register(Card)
+class CardAdmin(admin.ModelAdmin):
+    # admin show this list_display element
+    list_display = ('card_name','short_description','image_preview')
+
+    def image_preview(self, obj):
+        if obj.card_image:
+            return format_html(
+                '<img src="{}" />',
+                obj.card_image.url
+            )
+        return "No Image"
+    image_preview.short_description = 'Preview'
+
+    def short_description(self, obj):
+        if obj.card_description:
+            return obj.card_description[:40] + ("..." if len(obj.card_description) > 40 else "")
+        return ""
+    short_description.short_description = 'Description'
+    # import css file for design admin panel
+    class Media:
+        css = {'all': ('css/admin_custom.css',)}
