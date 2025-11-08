@@ -5,7 +5,7 @@ from django.contrib.auth import logout
 from django.http import JsonResponse
 from django.db.models import Count
 from django.contrib import messages
-from .models import Student, Department,Subjects,StudentRequest,CarouselImage,Card
+from .models import Student, Department,Subjects,StudentRequest,CarouselImage,Card,Semester,Result
 
 
 # send data to home.html
@@ -93,6 +93,7 @@ def register(request):
 
 # for login page 
 def login(request):
+    # get deparment data from Deparment table
     department = Department.objects.all()
 
     if request.method == 'POST':
@@ -134,11 +135,40 @@ def login(request):
 
 #show student data
 def result(request,id):
+
   student_id = Student.objects.get(id=id)
   dept_id = student_id.department_id
   department = Department.objects.get(id=dept_id)
-  subject = Subjects.objects.filter(department_id = dept_id)
-  return render(request, 'result.html',{'department':department,'member':student_id,'subjects':subject})
+  subjects = Subjects.objects.filter(department_id = dept_id)
+  semesters = Semester.objects.all().order_by('semester_number')
+  
+  context = {
+    'department':department,
+    'member':student_id,
+    'subjects':subjects,
+    'semesters':semesters,
+    }
+  return render(request, 'result.html',context)
+
+
+# create student result API
+def get_student_results(request):
+    student_id = request.GET.get('student_id')
+    semester_id = request.GET.get('semester_id')
+
+    results_list = []
+    if student_id and semester_id:
+        results = Result.objects.filter(student_id=student_id, semester_id=semester_id)
+        for r in results:           
+            results_list.append({
+                'subject': r.subject.subject,
+                'code':r.subject.subjectCode,
+                'exam':r.exam_type,
+                'marks': r.marks,
+                'grade': r.grade,
+                'cgpa': r.cgpa,
+            })
+    return JsonResponse({'results': results_list})
      
 
 # stduent request handel

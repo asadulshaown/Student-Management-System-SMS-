@@ -5,54 +5,98 @@ from django.shortcuts import redirect,render
 from django.contrib import messages
 from django.utils.html import format_html
 from .forms import ApproveStudentForm
-from .models import Student,Department,Subjects,StudentRequest,CarouselImage,Card
+from django.http import JsonResponse
+from .models import Student,Department,Subjects,StudentRequest,CarouselImage,Card,Result,Semester
 
 admin.site.site_header="Student Admin Panel"
 admin.site.index_title = "Admin Dashboard"
 
-admin.site.register(Subjects)
+
+# register Subject model 
+@admin.register(Subjects)
+class SubjectsAdmin(admin.ModelAdmin):
+    list_display = ('subject','subjectCode')
+    
+
+
+admin.site.register(Semester)
+
+
+# register Result model
+@admin.register(Result)
+class ResultAdmin(admin.ModelAdmin):
+    list_display =('student','subject','exam_type','marks','grade')
+    
+    fields = [
+        'student',
+        'semester',
+        'subject',
+        'exam_type',
+        'marks'
+        
+    ]
+    
+    # Dynamic filtering: Only show subjects of selected semester
+    def formfield_for_foreignkey(self, db_field, request, **kwargs):
+        if db_field.name == "subject":
+            if request._obj_ is not None:
+                kwargs["queryset"] = Subjects.objects.filter(semester=request._obj_.semester_id)
+        return super().formfield_for_foreignkey(db_field, request, **kwargs)
+
+    # Store the object in request for dynamic filtering
+    def get_form(self, request, obj=None, **kwargs):
+        request._obj_ = obj
+        return super().get_form(request, obj, **kwargs)
 
 # register Department table from model
 @admin.register(Department)
 class DepartmentAdmin(admin.ModelAdmin):
-    # admin show this list_display element
-    list_display = ('departmentName','student_preview')
+    list_display = ['departmentName',]
+    change_list_template = "admin/department_list.html"
 
-    def student_preview(self, obj):
-        if obj.id:
-            return format_html(
-                '<p>{}</P',
-                obj.id
-            )
-        return "No Student Found"
+    def get_urls(self):
+        urls = super().get_urls()
+        custom_urls = [
+            path(
+                "filter-students/",
+                self.admin_site.admin_view(self.filter_students),
+                name="filter_students",
+            ),
+        ]
+        return custom_urls + urls
 
+    def filter_students(self, request):
+        dept_id = request.GET.get("dept_id")
+        students = list(
+            Student.objects.filter(department_id=dept_id)
+            .values('student_name','roll','district','student_phone_number')
+        )
+        return JsonResponse(students, safe=False)
+
+    class Media:
+         css = {'all': ('css/admin_custom.css',)}
+         js = ('javascript/department_filter.js')
 
 
 # register Student table form database
 @admin.register(Student)
-class StudentAdmin(admin.ModelAdmin):
-    # admin only acn see this
-       readonly_fields = [
-        'student_name',
-        'student_phone_number',
-        'fathers_name',
-        'fathers_phone_number',
-        'mothers_name',
-    ]
-    
+class StudentAdmin(admin.ModelAdmin):    
     # admin only edit this field   
        fields = [
         'HonorsRegisterNO',
-        'roll'       
+        'roll',
+        'student_photo'      
     ]
-       list_display =[
+       list_display =(
         'student_name',
         'student_phone_number',
         'fathers_name',
         'department',
         'roll',
         'HonorsRegisterNO'
-       ]
+       )
+    
+       
     
     
 # register StudentRequest table from model

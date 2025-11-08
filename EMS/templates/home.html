@@ -8,19 +8,19 @@
 {% endblock csslink %}
 
 {% block content %}
-<h4 class=" text-white fw-bold mx-auto"> ভর্তির আবেদনপত্র </h4>
+<h4 class=" text-white fw-bold mx-auto"> আলোর প্রভাতি... </h4>
 {% endblock content %}
 
 {% block content1 %}   
     <!-- Desktop menu -->
     <div class="d-none d-md-flex justify-content-end gap-2 position-sticky top-0 top_button">
-        <a class="btn btn-warning mt-3" href="{% url 'register' %}">
+        <a class="btn btn-warning btn-sm fw-semibold mt-3" href="{% url 'register' %}">
             <img class=" text-white object-fit-cover" src="{% static 'images/icon/admin.png' %}" alt="admin icon">
             Register Now
         </a>
 
         <div class="dropdown mt-3">
-            <button class="btn btn-primary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+            <button class="btn btn-primary btn-sm dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
                  <img class="login_icon text-white object-fit-cover" src="{% static 'images/login.svg' %}" alt="login icon">
                 Login Here
             </button>
@@ -60,13 +60,6 @@
 
     <hr class="text-light">
    
-    <!-- Hero section -->
-    <!-- <div>
-        <h3 class="text-center text-info">Be A Man Like <q class="fst-italic">Down To Earth</q>
-        </h3>
-    </div> -->
-
-
     <!-- carousel set up  -->
     <div id="autoCarousel" class="carousel slide carousel_img" data-bs-ride="carousel" data-bs-interval="3000">
         <div class="carousel-inner">

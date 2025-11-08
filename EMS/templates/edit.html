@@ -8,6 +8,12 @@
 {% endblock content %}
 
 {% block content1 %}
+<div>
+  <a class=" btn btn-info btn-sm text-light fw-semibold" onclick="window.history.back()">
+    <i class=" bi bi-backspace"></i>
+    Back
+  </a>
+</div>
 <form method="post">
   {% csrf_token %} 
 
@@ -26,6 +32,11 @@
       <div class=" d-md-flex justify-content-between mt-3">
         <label class=" text-white form-label fw-bold" for="phone_num">মোবাইল নম্বরঃ</label>
         <input class=" form-control ms-md-2 w-75 fw-bold" type="number" name="phone_num" id="phone_num" value="{{ edit_student.student_phone_number}}" required>
+      </div>
+
+      <div class=" d-md-flex justify-content-between mt-3">
+        <label class=" text-white form-label fw-bold" for="phone_num">Change Profile</label>
+        <input class=" form-control ms-md-2 w-75 fw-bold" type="file" name="phone_num" id="photo" required>
       </div>
   </div>
   </div>

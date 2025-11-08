@@ -12,49 +12,59 @@
   <!-- Bootstrap Icons -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
   <!-- <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet"> -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
   <link rel="stylesheet" href="{% static 'css/profile.css' %}">
 </head>
 <body class=" bg-dark-subtle">
-<div class=" container bg-success-subtle border border-secondary">   
+<div class=" container min-vh-100 bg-success-subtle border border-secondary">   
 
 {% if messages %}
       {% for message in messages %}
-        <div class="alert alert-{{ message.tags }} mt-2" role="alert" id="alert">
-          {{ message }}
+        <div class="alert alert-success alert-dismissible fade show mt-2 w-25 start-50 " role="alert" id="alert">
+          <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+          <strong>{{ message }}</strong>
         </div>
       {% endfor %}
-    {% endif %}
+{% endif %}
 
       <!-- profile header -->
     <div class=" row mt-md-3">
       <div class=" col-2 d-grid">
-        <a href="{% url 'edit' student.id %}">
+        {% if student.student_photo %}
+        <a href="{% url 'edit' student.id %}">          
           <img class=" object-fit-cover border border-3 border-black rounded-circle profile_pic" src="{{student.student_photo.url}}" alt="profile picture " >
+          {% else %}
+          <img class=" object-fit-cover border border-3 border-black rounded-circle profile_pic" src="{% static 'images/logokacst.png' %}" alt="defult picture " >         
         </a>
+        {% endif %}
       </div>
 
-      <div class=" d-flex justify-content-end gap-md-2 align-items-center col-md-10 bg-dark bg-opacity-50 rounded border-start border-3 border-black shadow-sm sticky-top ">
-        <a class=" btn btn-warning fw-semibold" href="{% url 'result' student.id %}">
+      <div class=" d-flex justify-content-end gap-md-2 align-items-center col-md-10 bg-success bg-opacity-50 rounded border-start border-3 border-success shadow-sm sticky-top ">
+        <a class=" btn btn-warning btn-sm fw-semibold" href="{% url 'home'%}">
+          <i class=" bi bi-house-exclamation-fill text-black"></i>
+          Home
+        </a>
+        <a class=" btn btn-warning btn-sm fw-semibold" href="{% url 'result' student.id %}">
           <i class=" bi bi-database-check text-black"></i>
           Notices
         </a>
 
-        <a class=" btn btn-warning fw-semibold" href="{% url 'result' student.id %}">
+        <a class=" btn btn-warning btn-sm fw-semibold" href="{% url 'result' student.id %}">
           <i class=" bi bi-tree text-black"></i> 
           Result
         </a>
 
-        <a class=" btn btn-warning fw-semibold" href="{% url 'edit' student.id %}">
+        <a class=" btn btn-warning btn-sm fw-semibold" href="{% url 'edit' student.id %}">
           <i class=" bi bi-receipt text-black"></i> 
           Edit Profile
         </a>
 
-        <a class=" btn btn-warning fw-semibold" href="{% url 'result' student.id %}">
+        <a class=" btn btn-warning btn-sm fw-semibold" href="{% url 'result' student.id %}">
           <i class=" bi bi-cookie text-black"></i> 
           Course
         </a>
 
-        <a class=" btn btn-warning fw-semibold" href="{% url 'logout' %}">
+        <a class=" btn btn-warning btn-sm fw-semibold" href="{% url 'logout' %}">
           <i class=" bi  bi-lightbulb text-black"></i> 
           Logout
         </a>

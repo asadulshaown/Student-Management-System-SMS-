@@ -11,10 +11,12 @@
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
   <!-- Bootstrap Icons -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
+
+  <link href="{% static 'css/bootstrap/bootstrap.min.css' %}" rel="stylesheet">
   <link rel="stylesheet" href="{% static 'css/register.css' %}">
 
 </head>
-<body class=" bg-black">
+<body class=" bg-black user-select-none">
 
   <div class="container bg-dark shadow-lg border border-3 border-dark rounded">
 
@@ -197,7 +199,7 @@
         <div class=" col-md-6">
           <div class=" d-md-flex justify-content-between">
           <label class=" text-white form-label fw-bold ms-md-4" for="exam">পরীক্ষাঃ</label>
-          <select class="form-select ms-md-2 w-75 crusor" id="exam" name="exam" aria-label="exam">
+          <select class="form-select ms-md-2 w-75 fw-semibold crusor" id="exam" name="exam" aria-label="exam">
             <option selected disabled> -- Select Examination -- </option>
             <option > HSC </option>
             <option > SSC </option>
@@ -208,7 +210,7 @@
 
           <div class=" d-md-flex justify-content-between mt-2">
           <label class=" text-white ms-md-4 form-label fw-bold" for="group">গ্রুপঃ</label>
-          <select class="form-select ms-md-2 w-75 crusor" id="group" name="group" aria-label="group">
+          <select class="form-select ms-md-2 w-75 fw-semibold crusor" id="group" name="group" aria-label="group">
             <option selected disabled> -- Select Group -- </option>
             <option > Science </option>
             <option > Arts </option>
@@ -219,7 +221,7 @@
 
           <div class=" d-md-flex justify-content-between mt-2">
           <label class=" text-white ms-md-4 form-label fw-bold" for="board">বোর্ডঃ</label>
-          <select class="form-select ms-md-2 w-75 crusor" id="board" name="board" aria-label="board">
+          <select class="form-select ms-md-2 w-75 fw-semibold crusor" id="board" name="board" aria-label="board">
             <option selected disabled> -- Select Board -- </option>
             <option > Dhaka </option>
             <option > Chittagong </option>
@@ -257,7 +259,7 @@
     <div class="row mt-3"> 
     <div class="col-md-3 ms-md-4">
       <label for="departmentName">Department</label>
-      <select class="form-select crusor" id="departmentName" name="department" aria-label="department">
+      <select class="form-select fw-semibold crusor" id="departmentName" name="department" aria-label="department">
       <option selected  disabled>-- Select Department --</option>
 
       {% for dept in department %}
@@ -303,6 +305,6 @@
   </div>
 
 
-<script src="{% static 'javascript/script.js'%}"></script>
+<script src="{% static 'javascript/register.js'%}"></script>
 </body>
 </html>

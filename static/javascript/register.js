@@ -8,7 +8,7 @@ function previewPhoto(event) {
       if (input.files && input.files[0]) {
         const reader = new FileReader();
         reader.onload = function(e) {
-          preview.innerHTML = `<img class="w-50 h-50 shadow-sm object-fit-cover" src="${e.target.result}" alt="Passport Photo">`;
+          preview.innerHTML = `<img class="w-50 h-50 shadow-sm object-fit-cover border border-1 border-light rounded" src="${e.target.result}" alt="Passport Photo">`;
           preview.classList = "display:'inline',border='2px'"
         };
         reader.readAsDataURL(input.files[0]);

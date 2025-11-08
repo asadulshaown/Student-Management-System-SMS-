@@ -12,9 +12,9 @@
 <div class=" container-sm bg-black rounded shadow-md user-select-none min-vh-100">
 
     <div class=" d-flex justify-content-end">
-      <a class=" btn btn-info mt-3" href="{% url 'logout' %}">
-        <img class=" text-white object-fit-cover" src="{% static 'images/icon/logout.png' %}" alt="logout icon"> 
-        Logout
+      <a class=" btn btn-info btn-sm mt-3" onclick="window.history.back()">
+        <i class=" bi bi-backspace-reverse"></i> 
+        Back
       </a>
     </div>
 
@@ -48,23 +48,38 @@
     </div>
 
     <div class="mt-4">
-      <table class=" table table-dark table-striped ">
-        <tr class=" fw-bold text-center">
-          <td>Subject</td>
-          <td>Subject Code</td>
-          <td> Grade(CGPA)</td>
+      <table class=" table table-dark table-striped table-responsive ">
+        <tr class=" fw-bold">
+          <th class="w-25 ">
+            <select 
+            class="form-select fw-semibold crusor" 
+            id="semester" 
+            name="semester" 
+            data-student-id="{{ student.id }}" 
+            aria-label="semester">
+              <option selected disabled>-- Select Semester --</option>
+              {% for semester in semesters %}
+                <option value="{{ semester.id }}">{{ semester.semester_name }}</option>
+              {% endfor %}
+            </select>
+
+          </th>
+          <th> Exam </th>
+          <th> Subject</th>
+          <th> Subject Code</th>
+          <th>Marks</th>
+          <th> Grade</th>
+          <th> CGPA</th>
         </tr>
 
-        {% for subject in subjects %}
-        <tr class="">
-          <td>{{subject.subject}}</td>
-          <td>{{subject.subjectCode}}</td>
-          <td>{{subject.id}}</td>
-        </tr>
-        {%  endfor %}
-
+        <tbody id="table_body">          
+        <!-- Results will appear here -->
+        </tbody>
       </table>
     </div>
-
   </div>
 {% endblock content1 %}
+
+{% block script1 %}
+<script src="{% static 'javascript/student_result.js' %}"></script>
+{% endblock script1 %}

@@ -17,6 +17,7 @@ urlpatterns = [
     path('result/<int:id>/',views.result, name='result'),
     path('logout/',views.logout,name='logout'),
     path('edit/<int:id>/', views.Edit,name='edit'),
+    path('get_student_results/', views.get_student_results, name='get_student_results'),
     
     # Admin URLs
     path('admin/dashboard/', views.admin_dashboard, name='admin_dashboard'),
