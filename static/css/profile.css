@@ -6,8 +6,7 @@
 }
 
 .profile_pic:hover{
-  content: "Edit Profile";
-  color: lightgreen;
-  transition: linear .5s all;
+  color: rgb(14, 231, 14);
+  transition: ease .5s all;
   cursor: pointer;
 }

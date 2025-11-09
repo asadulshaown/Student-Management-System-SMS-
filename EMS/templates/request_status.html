@@ -13,8 +13,9 @@
 
     {% if messages %}
       {% for message in messages %}
-        <div class="alert alert-{{ message.tags }} mt-2" role="alert" id="alert">
-          {{ message }}
+        <div class="alert alert-success alert-dismissible fade show mt-2 w-25 start-50 " role="alert" id="alert">
+          <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+          <strong>{{ message }}</strong>
         </div>
       {% endfor %}
     {% endif %}
@@ -27,12 +28,20 @@
     {% if requests %}
       <tr>
         <th>Name</th>
-        <th>Exam</th>
+        <th>Examination</th>
+        <th>Passing Year</th>
+        <th>GPA</th>
+        <th>Date of Birth</th>
+        <th>Requested Department</th>
         <th>Status</th>
       </tr>
       <tr>
           <td>{{ requests.student_name }}</td>
           <td>{{ requests.examination }}</td>
+          <td>{{ requests.exam_year}}</td>
+          <td>{{ requests.gpa}}</td>
+          <td>{{ requests.date_of_birth}}</td>
+          <td>{{ requests.department.departmentName}}</td>
           <td>
             {% if requests.status == 'pending' %}
               <span id="pending" class="text-warning">Pending</span>

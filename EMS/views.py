@@ -24,7 +24,7 @@ def chart_data(request):
     return JsonResponse(list(data), safe=False)
 
   
-  
+ # register views 
 def register(request):
    departments = Department.objects.all()  
    if request.method == 'POST':
@@ -86,7 +86,11 @@ def register(request):
         Student_request.save()
         messages.success(request, "Register Successful!")
         
-        return redirect(f'/request_status/{regi_no}')
+        # Create cookie
+        response = redirect(f'/request_status/{regi_no}')
+        response.set_cookie('last_registered', student_name, max_age=7*24*60*60)  
+        # max_age = 7 days        
+        return response
    else:
         return render(request, "register.html", {'department': departments})
 
@@ -116,7 +120,7 @@ def login(request):
                 # COOKIE set
                 response = redirect(f'/profile/{student.id}')
                 messages.success(request, "Login successful!")
-                response.set_cookie('last_login_user', student.student_name, max_age=86400)  # 1 day will stay
+                response.set_cookie('last_login_user', student.student_name, max_age=7*24*60*60)  # 7 day will stay
                 return response
 
             else:
@@ -151,24 +155,30 @@ def result(request,id):
   return render(request, 'result.html',context)
 
 
-# create student result API
 def get_student_results(request):
     student_id = request.GET.get('student_id')
     semester_id = request.GET.get('semester_id')
-
+    
     results_list = []
     if student_id and semester_id:
+        try:
+            student = Student.objects.get(id=student_id)
+        except Student.DoesNotExist:
+            return JsonResponse({'error': 'Student not found'}, status=404)
+
         results = Result.objects.filter(student_id=student_id, semester_id=semester_id)
         for r in results:           
             results_list.append({
                 'subject': r.subject.subject,
-                'code':r.subject.subjectCode,
-                'exam':r.exam_type,
+                'code': r.subject.subjectCode,
+                'exam': r.exam_type,
                 'marks': r.marks,
                 'grade': r.grade,
                 'cgpa': r.cgpa,
             })
-    return JsonResponse({'results': results_list})
+        return JsonResponse({'results': results_list})
+    else:
+        return JsonResponse({'error': 'Missing student_id or semester_id'}, status=400)
      
 
 # stduent request handel

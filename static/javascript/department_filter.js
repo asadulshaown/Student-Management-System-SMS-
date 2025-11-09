@@ -5,8 +5,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
   deptSelect.addEventListener('change', () => {
     const deptId = deptSelect.value;
-    console.log("Selected deptId:", deptId);
-
     studentList.innerHTML = "<h4>Loading...</h4>";
 
     fetch(`/admin/EMS/department/filter-students/?dept_id=${deptId}`)
@@ -16,7 +14,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if (data.length > 0) {
           data.forEach(stu => {
             let row = ` <tr>
-                            <td><ol>1</ol></td>
+                            <td>${index + 1}</td>
                             <td>${stu.student_name}</td>
                             <td>${stu.roll}</td>
                             <td>${stu.district}</td>

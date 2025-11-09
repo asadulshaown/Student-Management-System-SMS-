@@ -102,7 +102,7 @@ class StudentAdmin(admin.ModelAdmin):
 # register StudentRequest table from model
 @admin.register(StudentRequest)
 class StudentRequestAdmin(admin.ModelAdmin):
-    list_display = ('student_name','student_phone_number','fathers_name', 'department','examination','group','exam_year','gpa','approve_button','reject_button')
+    list_display = ('student_name','student_phone_number','fathers_name', 'department','examination','group','exam_year','gpa','district','approve_button','reject_button')
     
     # admin can edit this field
     fields = [
