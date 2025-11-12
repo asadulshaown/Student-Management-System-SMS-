@@ -145,12 +145,14 @@ def result(request,id):
   department = Department.objects.get(id=dept_id)
   subjects = Subjects.objects.filter(department_id = dept_id)
   semesters = Semester.objects.all().order_by('semester_number')
-  
+  total_cgpa = student_id.total_cgpa
+  print(total_cgpa)
   context = {
     'department':department,
     'member':student_id,
     'subjects':subjects,
     'semesters':semesters,
+    'total_cgpa':total_cgpa
     }
   return render(request, 'result.html',context)
 

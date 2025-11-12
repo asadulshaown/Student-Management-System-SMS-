@@ -70,7 +70,15 @@ class Student(models.Model):
     student_photo = models.ImageField(upload_to='images/student_photo/', default="images/student_photo/server4.webp", null=True, blank=True)
     roll = models.IntegerField(default=0, null=True, blank=True)
     HonorsRegisterNO = models.IntegerField( default=0,null=True,blank=True)
+    total_cgpa = models.FloatField(default=0.0,null=True,blank=True)
     approved_at = models.DateTimeField(default=timezone.now, null=True, blank=True)
+    
+    def update_total_cgpa(self):
+        results = self.results.all()
+        if results.exists():
+            total_cgpa = sum(r.cgpa for r in results) / results.count()
+            self.total_cgpa = round(total_cgpa, 2)
+            self.save()
 
     def __str__(self):
         return f"{self.student_name} ({self.department.departmentName})"
@@ -126,7 +134,7 @@ class StudentRequest(models.Model):
 
 # Marks / Result Model
 class Result(models.Model):
-    student = models.ForeignKey(Student, on_delete=models.CASCADE)
+    student = models.ForeignKey(Student, on_delete=models.CASCADE,related_name='results')
     subject = models.ForeignKey(Subjects, on_delete=models.CASCADE, null=True, blank=True)
     semester = models.ForeignKey(Semester, on_delete=models.CASCADE, null=True, blank=True)
     exam_type = models.CharField(
@@ -169,6 +177,7 @@ class Result(models.Model):
             self.grade = 'F'
             self.cgpa = 0.00
         super().save(*args, **kwargs)
+        self.student.update_total_cgpa()
      
 
 # create CarouselImage table
