@@ -1,0 +1,33 @@
+
+
+.top_button{
+  z-index: 10;
+}
+/* card image design */
+.card_img{
+  width: 120px;
+  height: 120px;
+
+}
+
+.card_img:hover{
+  transition: all .5s linear;
+  width: 130px;
+  height: 130px;
+}
+
+
+.card_des{
+  width: 100%;
+  max-height: 280px; 
+  overflow: hidden; 
+  text-overflow: ellipsis; 
+}
+.card_des:hover{
+  transition: all .5s ease;
+  box-shadow: 0 8px 25px rgba(33, 218, 33, 0.918),
+            0 0 10px rgba(224, 139, 36, 0.87);
+  white-space: normal;
+  max-height: fit-content;
+
+}

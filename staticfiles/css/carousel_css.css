@@ -1,0 +1,11 @@
+
+/* home.html */
+.carousel_img{
+  max-height: 300px;
+  z-index: -1;
+}
+
+.login_icon{
+  transform: rotate(180deg);
+}
+

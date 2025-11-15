@@ -1,0 +1,12 @@
+
+/* profile.html */
+.profile_pic{
+  width: 80px;
+  height: 80px;
+}
+
+.profile_pic:hover{
+  color: rgb(14, 231, 14);
+  transition: ease .5s all;
+  cursor: pointer;
+}
